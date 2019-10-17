@@ -1,0 +1,32 @@
+<p> 
+  <h1><%= @listing.title %></h1>
+</p>
+
+<p> 
+  <strong> Description: </strong>
+  <%= @listing.description %>
+</p>
+
+<p> 
+  <strong> Price: </strong>
+  <%= @listing.price %>
+</p>
+
+<p> 
+  <strong> Sex: </strong>
+  <%= @listing.sex %>
+</p>
+
+<p> 
+  <strong> Diet: </strong>
+  <%= @listing.diet %>
+</p>
+
+<p> 
+  <strong> Breed: </strong>
+  <%= @listing.breed.name %>
+</p>
+
+<button><%= link_to "Edit", edit_listing_path(@listing) %></button>
+<button><%= link_to "Destroy", listing_path(@listing), method: :delete, data: {confirm: "Are you sure?"} %></button>
+<button><%= link_to "Back", listings_path %></button>

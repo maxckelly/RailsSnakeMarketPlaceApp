@@ -1,0 +1,8 @@
+<h1>Breeds</h1>
+
+<% @breeds.each do |breed| %>
+  <ul>
+    <li><%= breed.name%>
+    <button><%= link_to "Edit", edit_breeds_path(breed) %> </button>
+  </ul>
+<% end %>
