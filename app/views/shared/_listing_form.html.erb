@@ -1,4 +1,17 @@
 <%= form_with model: listing, local:true do |form| %>
+    <!-- Displays the errors in the screen. -->
+    <% if listing.errors.any? %>
+        <div>
+            <!--  The pluralize method basically says if there is one error change make the word error "error" if more than one error than make the word "errors" -->
+            <h2><%= pluralize(@listing.errors.count, "error") %> Prohibited this article from being save: </h2>
+
+            <ul>
+                <% @listing.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
 
   <div>
       <%= form.label :title %>

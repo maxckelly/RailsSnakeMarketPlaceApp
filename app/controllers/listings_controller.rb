@@ -18,9 +18,12 @@ class ListingsController < ApplicationController
   def create
     listing_params = params.require(:listing).permit(:title, :description, :breed_id, :sex, :price, :deposit, :city, :state, :date_of_birth, :diet)
     @listing = Listing.new(listing_params)
-    @listing.save
 
-    redirect_to @listing
+    if @listing.save
+      redirect_to @listing
+    else 
+      render :new
+    end
   end
 
   def edit
