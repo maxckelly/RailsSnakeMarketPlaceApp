@@ -5,8 +5,12 @@ class BreedsController < ApplicationController
     @breeds = Breed.all
   end
 
+  def show
+
+  end
+
   def new
-    @breeds = Breed.new
+    @breed = Breed.new
   end
 
   def create

@@ -1,1 +1,25 @@
-<h1> HELLO </h1>
+<h1> Adding a Breed </h1>
+
+<%= form_with model: @breed, local:true do |form| %>
+  <% if @breed.errors.any? %>
+    <div>
+      <h2><%= pluralize(@breed.errors.count, "error")%> Prohibited this article from being save: 
+      </h2> 
+      <ul>
+        <% @breed.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div> 
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

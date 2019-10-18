@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "/breeds", to: "breeds#view", as: "breeds"
   post "/breeds", to: "breeds#create"
   get "/breeds/new", to: "breeds#new", as: "new_breeds"
+  get "/breeds/:id", to: "breeds#show", as: "breed"
   get "/breeds/edit", to: "breeds#edit", as: "edit_breeds"
 
   # The * says if it doesn't recognise a path it will go to not_found html.
