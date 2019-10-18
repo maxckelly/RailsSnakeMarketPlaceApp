@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/breeds/new", to: "breeds#new", as: "new_breeds"
   get "/breeds/:id", to: "breeds#show", as: "breed"
   get "/breeds/edit", to: "breeds#edit", as: "edit_breeds"
+  delete "/breeds/:id", to: "breeds#destroy", as: "delete_breed"
 
   # The * says if it doesn't recognise a path it will go to not_found html.
   get "*path", to: "pages#not_found"

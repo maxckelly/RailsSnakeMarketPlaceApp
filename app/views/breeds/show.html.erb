@@ -1,1 +1,8 @@
 <h1> Breed </h1>
+
+<div> 
+  <%= @breed.name %>
+</div>
+
+<button><%= link_to "Back", breeds_path()%></button>
+<button><%= link_to "Delete", delete_breed_path(@breed.id), method: :delete, data: {confirm: "Are you sure?"}%></button>

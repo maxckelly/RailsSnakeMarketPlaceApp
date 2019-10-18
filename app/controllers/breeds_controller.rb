@@ -30,7 +30,8 @@ class BreedsController < ApplicationController
   end
 
   def destroy
-
+    @breed.destroy
+    redirect_to breeds_path
   end
 
   private
