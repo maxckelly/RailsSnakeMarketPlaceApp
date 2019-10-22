@@ -1,3 +1,7 @@
+<p>
+  <%= image_tag @listing.picture if @listing.picture.attached? %>
+</p>
+
 <p> 
   <h1><%= @listing.title %></h1>
 </p>
@@ -27,6 +31,10 @@
   <%= @listing.breed.name %>
 </p>
 
-<button><%= link_to "Edit", edit_listing_path(@listing) %></button>
-<button><%= link_to "Destroy", listing_path(@listing), method: :delete, data: {confirm: "Are you sure?"} %></button>
+
+<% if current_user.id == @listing.user_id %>
+  <button><%= link_to "Edit", edit_listing_path(@listing) %></button>
+  <button><%= link_to "Destroy", listing_path(@listing), method: :delete, data: {confirm: "Are you sure?"} %></button>
+<% end %>
 <button><%= link_to "Back", listings_path %></button>
+

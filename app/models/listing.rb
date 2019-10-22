@@ -4,7 +4,9 @@ class Listing < ApplicationRecord
 
   # Validations 
   validates :title, :description, :sex, :price, :breed, presence: true # This is saying that we require all the fields to be entered
-  validates :state, format: { with: /[1-9][0-9][0-9][0-9]/, message: "Only allows 4 numbers" }
+  # validates :state, format: { with: /[1-9][0-9][0-9][0-9]/, message: "Only allows 4 numbers" }
   validates :state, inclusion: { in: %w(VIC NSW WA NT ACT QLD SA), message: "%{value} is not valid state" }
   validates :deposit, numericality: { less_than_or_equal_to: :price, message: "can't be greater than price" } 
+  has_one_attached :picture # This validates to see if the user has entered an image and if its just one image
+  belongs_to :user
 end

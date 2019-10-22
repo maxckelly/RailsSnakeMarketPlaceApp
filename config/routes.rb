@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "/", to: "pages#home", as: "root"
 
 
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
   delete "/listings/:id", to: "listings#destroy"
   get "/listings/:id/edit", to: "listings#edit", as: "edit_listing"
 
-  #Breeds
+  # Breeds
   get "/breeds", to: "breeds#view", as: "breeds"
   post "/breeds", to: "breeds#create"
   get "/breeds/new", to: "breeds#new", as: "new_breeds"
@@ -21,5 +22,7 @@ Rails.application.routes.draw do
   delete "/breeds/:id", to: "breeds#destroy", as: "delete_breed"
 
   # The * says if it doesn't recognise a path it will go to not_found html.
-  get "*path", to: "pages#not_found"
+  get "*path", to: "pages#not_found", constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end

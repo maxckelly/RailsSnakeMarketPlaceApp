@@ -16,8 +16,8 @@
 
 
   <div>
-        <%= form.label :title %>
-        <%= form.text_field :title %>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
   </div>
 
   <div>
@@ -74,6 +74,11 @@
   <div>
         <%= form.label :breed_id %>
         <%= form.select :breed_id, options_for_select(Breed.all.collect { |u| [u.name, u.id] }, :selected => listing.breed_id) %>
+  </div>
+
+  <div>
+      <%= form.label :picture%>
+      <%= form.file_field :picture, accept: "image/png,image/gif,image/jpg,image/jpeg"%>
   </div>
   <div>
       <%= form.submit %>
