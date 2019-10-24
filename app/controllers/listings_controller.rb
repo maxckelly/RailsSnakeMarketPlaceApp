@@ -2,8 +2,7 @@ class ListingsController < ApplicationController
 
   # The before action allows us to run one command instead of three. It says basically it is going to run show, edit, update and destroy. So before you do any actions its going to call set_listing
   before_action :authenticate_user!
-  before_action :set_listing, only: [ :show ] 
-  before_action :set_user_listing, only: [ :edit, :update, :destroy]
+  before_action :set_user_listing, only: [ :edit, :update, :show, :destroy]
 
 
   def index
@@ -11,7 +10,32 @@ class ListingsController < ApplicationController
   end
 
   def show
-    
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      customer_email: current_user.email,
+      line_items: [{
+        name: @listing.title,
+        description: @listing.description,
+        # We're timsing by 100 because stripe works in cents and we want to display dollars
+        amount: @listing.deposit * 100, 
+        currency: 'aud',
+        # Quantity is the amount you're buying if you're selling based on quantity.
+        quantity: 1
+      }],
+      payment_intent_data: {
+        metadata: {
+          user_id: current_user.id,
+          # The below grabs the listing ID so it relates to the listing
+          listing_id: @listing.id
+        }
+      },
+      # This directs the user if the payment is successful 
+      success_url: "#{root_url}payments/success?userId=#{current_user.id}&listingId=#{@listing.id}",
+      cancel_url: "#{root_url}listings"
+    )
+
+    # This then sets the session above to an id.
+    @session_id = session.id
   end
 
   def new
@@ -69,6 +93,11 @@ class ListingsController < ApplicationController
 
     if @listing == nil
       redirect_to listings_path
+    else 
+      # The below if statement says if the value is nil then display 1 - However this shouldn't happen as a price should be a requirement. Stripe does not let this be 0 so this should be handled in the form creation.
+      if @listing.deposit == nil
+        @listing.deposit = 1
+      end
     end
   end
 

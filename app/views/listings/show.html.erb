@@ -17,6 +17,11 @@
 </p>
 
 <p> 
+  <strong> Deposit: </strong>
+  <%= @listing.deposit %>
+</p>
+
+<p> 
   <strong> Sex: </strong>
   <%= @listing.sex %>
 </p>
@@ -31,6 +36,25 @@
   <%= @listing.breed.name %>
 </p>
 
+<button data-stripe="payment">
+  Pay Deposit <%= number_to_currency(@listing.deposit) %>
+</button>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+  document
+    .querySelector("[data-stripe='payment']")
+    .addEventListener("click", () => {
+      const stripe = Stripe(
+        "<%= Rails.application.credentials.dig(:stripe, :public_key) %>"
+      );
+
+      stripe.redirectToCheckout({
+        sessionId: "<%= @session_id %>"
+      });
+    });
+</script>
 
 <% if current_user.id == @listing.user_id %>
   <button><%= link_to "Edit", edit_listing_path(@listing) %></button>

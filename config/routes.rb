@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   delete "/listings/:id", to: "listings#destroy"
   get "/listings/:id/edit", to: "listings#edit", as: "edit_listing"
 
+  # Stripe/Payments Routes
+  get "/payments/success", to: "payments#success"
+  post "payments/webhook", to: "payments#webhook"
+
   # Breeds
   get "/breeds", to: "breeds#view", as: "breeds"
   post "/breeds", to: "breeds#create"
