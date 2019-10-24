@@ -1,3 +1,10 @@
-<h1> Success </h1>
+<h1> <%= "Success! Thank you #{current_user.email} for payment" %></h1>
+
+<div>
+  <p><%= @listing.title %></p>
+  <p><%= @listing.deposit %></p>
+
+  <p> <%= "The total payment of #{@listing.price} is due in the next 30 Days" %></p>
+</div>
 
 <%= link_to "Go to listings", listings_path%>

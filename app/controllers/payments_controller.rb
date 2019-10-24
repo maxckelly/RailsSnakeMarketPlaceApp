@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
   # While we're in the testing environment we're going to skip auth.
   skip_before_action :verify_authenticity_token, only: ( :webhook )
+  before_action :set_listing, only: [:success]
   def success
 
   end
@@ -19,5 +20,11 @@ class PaymentsController < ApplicationController
     
     status 200
   end
+  
+  private 
 
+  def set_listing
+    listing_id = params[:listingId]
+    @listing = Listing.find(listing_id)
+  end
 end
